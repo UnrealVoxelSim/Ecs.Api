@@ -97,7 +97,12 @@ CMake files, presets, manifests, or documentation.
 - C++ namespaces mirror target segments, for example `UnrealVoxelSim::Ecs::Api`.
 - Modules containing contracts and shared value types use the `.Api` suffix.
 - Implementation suffixes identify the implementation or integration, such as `.EnTT`, `.Unreal`, or `.InMemory`.
-- Treat namespaces as part of a type's name. Do not repeat namespace words in the type name.
+- Treat namespaces as part of a type's fully qualified name. Do not repeat domain or module qualifiers already supplied
+  by namespaces, including semantic repetitions that are not exact spelling matches. Prefer
+  `UnrealVoxelSim::Voxel::Solid::Api::IReader` to `ISolidVoxelReader`, and
+  `UnrealVoxelSim::Voxel::Solid::Controller` to `SolidVoxels`.
+- Retain a qualifier when it distinguishes sibling concepts in the same namespace or removing it would make the role
+  ambiguous, for example `Ecs::Api::EntityOperationError` and `Ecs::Api::ComponentOperationError`.
 - Dynamically polymorphic interfaces are prefixed with `I`.
 - Concept names describe requirements and are not prefixed with `I`.
 - Use explicit domain types instead of primitive parameters when values have different meanings or invariants.
