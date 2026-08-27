@@ -26,4 +26,4 @@ class EntityIdAccess final
     }
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api::Detail
+}

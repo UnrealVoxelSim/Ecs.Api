@@ -28,4 +28,4 @@ struct Query final
     using Excluded = TExclude;
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

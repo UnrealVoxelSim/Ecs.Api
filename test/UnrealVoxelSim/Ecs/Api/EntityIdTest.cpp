@@ -45,4 +45,4 @@ TEST(EntityIdTest, QueryDescriptorPreservesAccessCategories)
     static_assert(std::same_as<typename Descriptor::Excluded, Exclude<Disabled>>);
 }
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

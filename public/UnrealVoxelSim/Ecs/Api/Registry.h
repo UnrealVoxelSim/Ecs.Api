@@ -61,4 +61,4 @@ concept QueryableRegistry = Registry<TRegistry> && requires(TRegistry &registry,
     registry.ForEach(query, function);
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

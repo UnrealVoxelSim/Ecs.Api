@@ -31,4 +31,4 @@ class RegistryScopeId final
     std::uint32_t m_Value{};
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

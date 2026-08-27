@@ -8,4 +8,4 @@ enum class EntityOperationError
     NotAlive,
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

@@ -44,4 +44,4 @@ class EntityId final
 static_assert(sizeof(EntityId) == sizeof(std::uint64_t));
 static_assert(std::is_trivially_copyable_v<EntityId>);
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}

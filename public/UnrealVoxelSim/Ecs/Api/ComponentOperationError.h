@@ -10,4 +10,4 @@ enum class ComponentOperationError
     NotPresent,
 };
 
-} // namespace UnrealVoxelSim::Ecs::Api
+}
