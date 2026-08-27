@@ -11,24 +11,24 @@ class RegistryScopeId final
   public:
     constexpr RegistryScopeId() noexcept = default;
 
-    explicit constexpr RegistryScopeId(const std::uint32_t value) noexcept : Value_(value)
+    explicit constexpr RegistryScopeId(const std::uint32_t value) noexcept : m_Value(value)
     {
     }
 
     [[nodiscard]] constexpr bool IsValid() const noexcept
     {
-        return Value_ != 0;
+        return m_Value != 0;
     }
 
     [[nodiscard]] constexpr std::uint32_t Value() const noexcept
     {
-        return Value_;
+        return m_Value;
     }
 
     auto operator<=>(const RegistryScopeId &) const = default;
 
   private:
-    std::uint32_t Value_{};
+    std::uint32_t m_Value{};
 };
 
 } // namespace UnrealVoxelSim::Ecs::Api

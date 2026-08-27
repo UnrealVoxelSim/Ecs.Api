@@ -22,7 +22,7 @@ class EntityIdAccess final
 
     [[nodiscard]] static constexpr std::uint64_t Value(const EntityId entity) noexcept
     {
-        return entity.Value_;
+        return entity.m_Value;
     }
 };
 

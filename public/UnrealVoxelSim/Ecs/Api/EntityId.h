@@ -21,12 +21,12 @@ class EntityId final
 
     [[nodiscard]] constexpr bool IsValid() const noexcept
     {
-        return Value_ != 0;
+        return m_Value != 0;
     }
 
     [[nodiscard]] constexpr RegistryScopeId Scope() const noexcept
     {
-        return RegistryScopeId{static_cast<std::uint32_t>(Value_ >> 32U)};
+        return RegistryScopeId{static_cast<std::uint32_t>(m_Value >> 32U)};
     }
 
     auto operator<=>(const EntityId &) const = default;
@@ -34,11 +34,11 @@ class EntityId final
   private:
     friend class Detail::EntityIdAccess;
 
-    explicit constexpr EntityId(const std::uint64_t value) noexcept : Value_(value)
+    explicit constexpr EntityId(const std::uint64_t value) noexcept : m_Value(value)
     {
     }
 
-    std::uint64_t Value_{};
+    std::uint64_t m_Value{};
 };
 
 static_assert(sizeof(EntityId) == sizeof(std::uint64_t));
