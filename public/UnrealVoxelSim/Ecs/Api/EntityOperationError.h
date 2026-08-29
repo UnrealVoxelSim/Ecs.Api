@@ -2,10 +2,8 @@
 
 namespace UnrealVoxelSim::Ecs::Api
 {
-
-enum class EntityOperationError
-{
-    NotAlive,
-};
-
+	enum class EntityOperationError
+	{
+		NotAlive,
+	};
 }
