@@ -2,6 +2,7 @@ find_package(GTest CONFIG REQUIRED)
 
 add_executable(
     ${PROJECT_NAME}.Test
+    UnrealVoxelSim/Ecs/Api/AccessTest.cpp
     UnrealVoxelSim/Ecs/Api/EntityIdTest.cpp
 )
 

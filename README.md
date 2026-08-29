@@ -10,5 +10,11 @@ Queries declare read, write, required-filter, and excluded-filter components exp
 iteration are deferred through the selected backend's command buffer. Registries are thread-affine unless their backend
 documents a stronger contract.
 
+`Access<Permissions, Queries...>` is a non-owning capability facade whose constructor erases the concrete registry
+type. It restricts each system to declared read, existing-value write, component-structural, entity-lifecycle, and
+query operations without runtime permission checks. The composition root retains the full registry and constructs the
+narrowed access objects. Domain controller types therefore remain concrete and backend-independent; only access-object
+construction is templated on the selected registry.
+
 Registry objects are composition-owned infrastructure. Dynamic system APIs do not accept registries, views, component
 storage, or command buffers.

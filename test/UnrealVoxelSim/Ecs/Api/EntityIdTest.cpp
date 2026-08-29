@@ -7,42 +7,37 @@
 
 namespace UnrealVoxelSim::Ecs::Api
 {
+	TEST(EntityIdTest, DefaultIdentifierIsInvalid) { EXPECT_FALSE(EntityId{}.IsValid()); }
 
-TEST(EntityIdTest, DefaultIdentifierIsInvalid)
-{
-    EXPECT_FALSE(EntityId{}.IsValid());
-}
+	TEST(EntityIdTest, RetainsRegistryScopeAndLocalValue)
+	{
+		constexpr RegistryScopeId Scope{17};
+		constexpr auto Entity = Detail::EntityIdAccess::Create(Scope, 42);
 
-TEST(EntityIdTest, RetainsRegistryScopeAndLocalValue)
-{
-    constexpr RegistryScopeId Scope{17};
-    constexpr auto Entity = Detail::EntityIdAccess::Create(Scope, 42);
+		static_assert(Entity.IsValid());
+		static_assert(Entity.Scope() == Scope);
+		static_assert(Detail::EntityIdAccess::LocalValue(Entity) == 42);
 
-    static_assert(Entity.IsValid());
-    static_assert(Entity.Scope() == Scope);
-    static_assert(Detail::EntityIdAccess::LocalValue(Entity) == 42);
+		EXPECT_EQ(Entity.Scope(), Scope);
+		EXPECT_EQ(Detail::EntityIdAccess::LocalValue(Entity), 42U);
+	}
 
-    EXPECT_EQ(Entity.Scope(), Scope);
-    EXPECT_EQ(Detail::EntityIdAccess::LocalValue(Entity), 42U);
-}
+	TEST(EntityIdTest, QueryDescriptorPreservesAccessCategories)
+	{
+		struct PositionComponent
+		{
+		};
+		struct VelocityComponent
+		{
+		};
+		struct DisabledComponent
+		{
+		};
 
-TEST(EntityIdTest, QueryDescriptorPreservesAccessCategories)
-{
-    struct Position
-    {
-    };
-    struct Velocity
-    {
-    };
-    struct Disabled
-    {
-    };
+		using Descriptor = Query<Read<PositionComponent>, Write<VelocityComponent>, With<>, Exclude<DisabledComponent>>;
 
-    using Descriptor = Query<Read<Position>, Write<Velocity>, With<>, Exclude<Disabled>>;
-
-    static_assert(std::same_as<typename Descriptor::ReadAccess, Read<Position>>);
-    static_assert(std::same_as<typename Descriptor::WriteAccess, Write<Velocity>>);
-    static_assert(std::same_as<typename Descriptor::Excluded, Exclude<Disabled>>);
-}
-
+		static_assert(std::same_as<typename Descriptor::ReadAccess, Read<PositionComponent>>);
+		static_assert(std::same_as<typename Descriptor::WriteAccess, Write<VelocityComponent>>);
+		static_assert(std::same_as<typename Descriptor::Excluded, Exclude<DisabledComponent>>);
+	}
 }
