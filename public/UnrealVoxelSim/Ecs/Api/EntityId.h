@@ -8,7 +8,7 @@
 
 namespace UnrealVoxelSim::Ecs::Api
 {
-	namespace Detail
+	namespace Backend
 	{
 		class EntityIdAccess;
 	}
@@ -31,7 +31,7 @@ namespace UnrealVoxelSim::Ecs::Api
 		auto operator<=>(const EntityId&) const = default;
 
 	private:
-		friend class Detail::EntityIdAccess;
+		friend class Backend::EntityIdAccess;
 
 		explicit constexpr EntityId(const std::uint64_t value) noexcept : m_Value(value)
 		{

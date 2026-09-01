@@ -1,5 +1,5 @@
 #include "UnrealVoxelSim/Ecs/Api/EntityId.h"
-#include "UnrealVoxelSim/Ecs/Api/Detail/EntityIdAccess.h"
+#include "UnrealVoxelSim/Ecs/Api/Backend/EntityIdAccess.h"
 #include "UnrealVoxelSim/Ecs/Api/Query.h"
 #include "UnrealVoxelSim/Ecs/Api/RegistryScopeId.h"
 
@@ -9,17 +9,17 @@ namespace UnrealVoxelSim::Ecs::Api
 {
 	TEST(EntityIdTest, DefaultIdentifierIsInvalid) { EXPECT_FALSE(EntityId{}.IsValid()); }
 
-	TEST(EntityIdTest, RetainsRegistryScopeAndLocalValue)
+	TEST(EntityIdTest, RetainsRegistryScopeAndBackendValue)
 	{
 		constexpr RegistryScopeId Scope{17};
-		constexpr auto Entity = Detail::EntityIdAccess::Create(Scope, 42);
+		constexpr auto Entity = Backend::EntityIdAccess::Create(Scope, 42);
 
 		static_assert(Entity.IsValid());
 		static_assert(Entity.Scope() == Scope);
-		static_assert(Detail::EntityIdAccess::LocalValue(Entity) == 42);
+		static_assert(Backend::EntityIdAccess::GetValue(Entity) == 42);
 
 		EXPECT_EQ(Entity.Scope(), Scope);
-		EXPECT_EQ(Detail::EntityIdAccess::LocalValue(Entity), 42U);
+		EXPECT_EQ(Backend::EntityIdAccess::GetValue(Entity), 42U);
 	}
 
 	TEST(EntityIdTest, QueryDescriptorPreservesAccessCategories)

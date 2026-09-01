@@ -1,6 +1,6 @@
 #include "UnrealVoxelSim/Ecs/Api/Access.h"
 #include "UnrealVoxelSim/Ecs/Api/ComponentOperationError.h"
-#include "UnrealVoxelSim/Ecs/Api/Detail/EntityIdAccess.h"
+#include "UnrealVoxelSim/Ecs/Api/Backend/EntityIdAccess.h"
 
 #include <gtest/gtest.h>
 
@@ -40,7 +40,7 @@ namespace UnrealVoxelSim::Ecs::Api
 
 			[[nodiscard]] RegistryScopeId Scope() const noexcept { return RegistryScopeId{1}; }
 
-			[[nodiscard]] EntityId Create() { return Detail::EntityIdAccess::Create(Scope(), 1); }
+			[[nodiscard]] EntityId Create() { return Backend::EntityIdAccess::Create(Scope(), 1); }
 
 			[[nodiscard]] bool IsAlive(EntityId) const noexcept { return true; }
 
@@ -91,7 +91,7 @@ namespace UnrealVoxelSim::Ecs::Api
 			void ForEach(TQuery, TFunction&& function)
 			{
 				std::invoke(std::forward<TFunction>(function),
-							Detail::EntityIdAccess::Create(Scope(), 1),
+							Backend::EntityIdAccess::Create(Scope(), 1),
 							std::as_const(m_Position),
 							m_Velocity);
 			}
